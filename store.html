@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Tech Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .zoom:hover {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <a href="index.html" class="text-xl font-bold text-blue-600">Back to Home</a>
+        <h1 class="text-xl font-semibold text-gray-800">E-Tech Store</h1>
+    </nav><div class="p-4">
+    <input id="filterInput" type="text" placeholder="Search by model or spec..."
+        class="w-full p-2 mb-4 border border-gray-300 rounded-md" oninput="filterProducts()"><div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+</div><!-- Modal for product details --><div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-lg w-full relative">
+        <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 text-2xl">&times;</button>
+        <h2 id="modalTitle" class="text-xl font-semibold mb-2"></h2>
+        <div class="grid grid-cols-3 gap-2 mb-4">
+            <img id="modalImg1" src="" alt="Image 1" class="rounded cursor-pointer zoom">
+            <img id="modalImg2" src="" alt="Image 2" class="rounded cursor-pointer zoom">
+            <img id="modalImg3" src="" alt="Image 3" class="rounded cursor-pointer zoom">
+        </div>
+        <p id="modalSpecs" class="text-gray-700"></p>
+    </div>
+</div><!-- Zoom Lightbox -->
+<div id="zoomLightbox" class="fixed inset-0 bg-black bg-opacity-80 hidden justify-center items-center z-50">
+  <img id="zoomedImg" src="" class="max-h-[90%] max-w-[90%] rounded-lg shadow-xl" alt="Zoomed View">
+</div>
+
+<script>
+  const products = [
+    {
+      model: "HP pavilion 15",
+      specs: "Intel Core i3 6th Gen, 8GB RAM, 500GB HDD, 15.6 screen size, Windows 11 pro",
+      price: "₦230,000",
+      images: ["/images/pavilion.jpg", "/images/pavilion 2.jpg", "/images/pavilion.jpg"]
+    },
+    {
+      model: "HP EliteBook 830 G5",
+      specs: "Intel Core i5 8th Gen, 8GB RAM, 256GB SSD, 13-inches screen size,keyboard light, Windows 11",
+      price: "₦350,000",
+      images: ["/images/G5.jpg", "/images/g52.jpg", "/images/g53.jpg"]
+    },
+    {
+      model: "HP EliteBook 840 G6",
+      specs: "Intel Core i5 8th Gen, 8GB RAM, 256GB SSD, 14-inch Display, Keyboard backlight, Windows 11",
+      price: "₦360,000",
+      images: ["/images/g6.jpg", "/images/g61.jpg", "/images/g62.jpg"]
+    },
+     {
+      model: "HP EliteBook 830 G6",
+      specs: "Intel Core i7 8th Gen, 8GB RAM, 256GB SSD, 13-inch Display, Keyboard backlight, Windows 11",
+      price: "₦380,000",
+      images: ["/images/g63.jpg", "/images/g64.jpg", "/images/g65.jpg"]
+    },
+    {
+      model: "HP Elitebook 1040 G7 x360",
+      specs: "Intel Core i7 10th Gen, 16GB RAM, 256GB SSD, 14-inch Display, Keyboard backlight, Touchscreen, Fingerprint, Face id, Windows 11",
+      price: "₦750,000",
+      images: ["/images/g4.jpg", "/images/g4.jpg", "/images/g4.jpg"]
+    },
+     {
+      model: "HP Dragon Fly x360",
+      specs: "Intel Core i7 8th Gen, 16GB RAM, 512GB SSD, 13-inch Display, Keyboard backlight, Touchscreen, Fingerprint, Face id, Windows 11",
+      price: "₦690,000",
+      images: ["/images/fly1.jpg", "/images/fly2.jpg", "/images/fly3.jpg"]
+    },
+    {
+      model: "HP Elitebook 820 G2",
+      specs: "Intel Core i5 5th Gen, 8GB RAM, 500GB HDD, 13-inch Display, Keyboard backlight, Windows 11",
+      price: "₦220,000",
+      images: ["/images/g2.jpg", "/images/g22.jpg", "/images/g23.jpg"]
+    },
+    {
+      model: "HP EliteBook 840 G3",
+      specs: "Intel Core i7 6th Gen, 8GB RAM, 500GB HDD + 256 SSD, 14-inch Display, Keyboard backlight, Windows 11, Fingerprint, Touchscreen",
+      price: "₦360,000",
+      images: ["/images/g3.jpg", "/images/g32.jpg", "/images/g33.jpg"]
+    },
+     {
+      model: "HP ProBook 450 G5",
+      specs: "Intel Core i5 8th Gen, 8GB RAM, 256 SSD, 15.6-inch Display, Keyboard backlight, Windows 11, Fingerprint",
+      price: "₦280,000",
+      images: ["/images/pro.jpg", "/images/pro1.jpg", "/images/pro2.jpg"]
+    },
+    {
+      model: "HP EliteBook 1030 G2 x360",
+      specs: "Intel Core i5 7th Gen, 8GB RAM, 256 SSD, 14-inch Display, Keyboard backlight,Finger print, Face id, Windows 11",
+      price: "₦460,000",
+      images: ["/images/g24.jpg", "/images/g25.jpg", "/images/g26.jpg"]
+    },
+  ];
+
+  function displayProducts(filteredProducts = products) {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+
+    filteredProducts.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'bg-white p-4 rounded-lg shadow-md';
+
+      card.innerHTML = `
+        <img src="${product.images[0]}" alt="${product.model}" class="w-full h-40 object-cover mb-2 rounded">
+        <h2 class="text-lg font-semibold">${product.model}</h2>
+        <p class="text-gray-600">${product.specs}</p>
+        <p class="text-blue-600 font-bold mt-2">${product.price}</p>
+        <div class="flex justify-between mt-4">
+          <button onclick='viewDetails(${JSON.stringify(product)})' class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">View Details</button>
+          <a href="https://wa.me/2347013930533?text=Hello, I'm%20interested%20in%20${encodeURIComponent(product.model)}"
+             class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Order Now</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterProducts() {
+    const query = document.getElementById('filterInput').value.toLowerCase();
+    const filtered = products.filter(p =>
+      p.model.toLowerCase().includes(query) || p.specs.toLowerCase().includes(query)
+    );
+    displayProducts(filtered);
+  }
+
+  function viewDetails(product) {
+    document.getElementById('modalTitle').textContent = product.model;
+    document.getElementById('modalSpecs').textContent = product.specs;
+    document.getElementById('modalImg1').src = product.images[0];
+    document.getElementById('modalImg2').src = product.images[1];
+    document.getElementById('modalImg3').src = product.images[2];
+    document.getElementById('productModal').classList.remove('hidden');
+    document.getElementById('productModal').classList.add('flex');
+  }
+
+  function closeModal() {
+    document.getElementById('productModal').classList.add('hidden');
+    document.getElementById('productModal').classList.remove('flex');
+  }
+
+  // Lightbox zoom
+  const zoomedImg = document.getElementById('zoomedImg');
+  const zoomLightbox = document.getElementById('zoomLightbox');
+
+  ['modalImg1', 'modalImg2', 'modalImg3'].forEach(id => {
+    document.getElementById(id).addEventListener('click', (e) => {
+      zoomedImg.src = e.target.src;
+      zoomLightbox.classList.remove('hidden');
+      zoomLightbox.classList.add('flex');
+    });
+  });
+
+  zoomLightbox.addEventListener('click', () => {
+    zoomLightbox.classList.add('hidden');
+    zoomLightbox.classList.remove('flex');
+  });
+
+  // Initial display
+  displayProducts();
+</script>
+</body>
+</html>
