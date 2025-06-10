@@ -503,6 +503,44 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Business Contact Styling */
+    .contact-info {
+        margin-top: 2rem;
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        text-align: center;
+    }
+
+    .contact-info a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .contact-info a:hover {
+        color: var(--primary-dark);
+    }
+
+    /* Social Links Styling */
+    .social-links {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .social-link {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .social-link:hover {
+        color: var(--primary);
+    }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
@@ -723,34 +761,41 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section" id="contact">
-        <h2 class="section-title fade-in">Get In Touch</h2>
-        
-        <div class="glass-card fade-in">
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Your Full Name" required>
-                </div>
-                <div class="form-group">
-                    <select class="form-input" required>
-                        <option value="">I'm interested in...</option>
-                        <option value="school">School IT Support & Maintenance</option>
-                        <option value="business">Business IT Solutions</option>
-                        <option value="ai-training">AI Training for Staff/Teachers</option>
-                        <option value="hardware">Hardware Purchase + Support</option>
-                        <option value="assessment">FREE Tech Assessment</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-input" placeholder="Email Address" required>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-input" rows="4" placeholder="Tell us about your current IT challenges or what you'd like to achieve" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Get Your FREE Consultation</button>
-            </form>
-        </div>
-    </section>
+<section class="section" id="contact">
+    <h2 class="section-title fade-in">Get In Touch</h2>
+    
+    <div class="glass-card fade-in">
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Your Full Name" required>
+            </div>
+            <div class="form-group">
+                <select class="form-input" required>
+                    <option value="">I'm interested in...</option>
+                    <option value="school">School IT Support & Maintenance</option>
+                    <option value="business">Business IT Solutions</option>
+                    <option value="ai-training">AI Training for Staff/Teachers</option>
+                    <option value="hardware">Hardware Purchase + Support</option>
+                    <option value="assessment">FREE Tech Assessment</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-input" rows="4" placeholder="Tell us about your current IT challenges or what you'd like to achieve" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Get Your FREE Consultation</button>
+        </form>
+    </div>
+
+    <!-- Business Contact Information -->
+    <div class="contact-info fade-in">
+        <p><strong>Address:</strong> Uniport Abuja campus, Port Harcourt, Rivers State, Nigeria</p>
+        <p><strong>Contact Line:</strong> <a href="tel:+2347013930533">+2347013930533</a></p>
+        <p><strong>Email:</strong> <a href="mailto:enochtechsolution@gmail.com">enochtechsolution@gmail.com</a></p>
+    </div>
+</section>
 
    <!-- Footer -->
 <footer style="text-align: center; padding: 2rem 0; background-color: #343a40; color: white;">
@@ -766,6 +811,8 @@
         </a>
     </div>
     <p style="margin-top: 1rem; font-size: 1rem; color: #ddd;">© 2025 E-Tech Solutions. All rights reserved.</p>
+    <!-- Email Link in Footer -->
+    <p><strong>Email Us:</strong> <a href="mailto:enochtechsolution@gmail.com" style="color: #ddd; text-decoration: none;">enochtechsolution@gmail.com</a></p>
 </footer>
     <script>
         // Smooth scrolling and navigation
