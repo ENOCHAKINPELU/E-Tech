@@ -312,7 +312,7 @@
   }
   .digital-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
   .digital-card{display:block;position:relative;}
-  .digital-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .digital-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;row-gap:10px;}
   .digital-logo{
     width:56px;height:56px;border-radius:14px;background:var(--grad);
     display:flex;align-items:center;justify-content:center;margin-bottom:20px;overflow:hidden;flex-shrink:0;
@@ -412,6 +412,7 @@
     .fw-steps{grid-template-columns:repeat(4,1fr);row-gap:36px;}
     .fw-line{display:none;}
     .sol-grid{grid-template-columns:1fr 1fr;}
+    .digital-grid{grid-template-columns:1fr;}
     .insight-grid{grid-template-columns:1fr;}
     .test-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
@@ -419,6 +420,8 @@
   }
   @media (max-width:560px){
     .wrap{padding:0 20px;}
+    .logo{font-size:16px;gap:8px;}
+    .logo-mark{width:26px;height:26px;}
     .ind-grid{grid-template-columns:repeat(2,1fr);}
     .feat-grid{grid-template-columns:1fr;}
     .fw-steps{grid-template-columns:repeat(2,1fr);}
