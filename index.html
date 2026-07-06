@@ -312,13 +312,21 @@
   }
   .digital-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
   .digital-card{display:block;position:relative;}
-  .digital-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;row-gap:10px;}
+  .digital-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;row-gap:10px;margin-bottom:20px;}
   .digital-logo{
     width:56px;height:56px;border-radius:14px;background:var(--grad);
-    display:flex;align-items:center;justify-content:center;margin-bottom:20px;overflow:hidden;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
   }
   .digital-logo img{width:100%;height:100%;object-fit:contain;}
   .digital-logo .initial{color:white;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;}
+  .digital-logo-img{
+    height:34px;width:auto;max-width:190px;object-fit:contain;flex-shrink:0;
+    border-radius:8px;
+  }
+  .digital-logo-tile{
+    height:48px;width:auto;max-width:130px;object-fit:contain;flex-shrink:0;
+    border-radius:12px;border:1px solid var(--line);
+  }
   .digital-card .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
   .digital-card h4{font-size:19px;margin-top:12px;font-weight:700;}
   .digital-card p{margin-top:10px;font-size:14.5px;}
@@ -440,6 +448,21 @@
     padding:12px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:top .2s var(--ease);
   }
   .skip-link:focus{top:16px;}
+  .back-to-top{
+    position:fixed;bottom:28px;right:28px;z-index:150;
+    width:48px;height:48px;border-radius:50%;
+    background:var(--grad);color:white;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 28px -10px rgba(11,95,165,0.5);
+    opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .3s var(--ease), transform .3s var(--ease), visibility .3s, background .25s;
+  }
+  .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--grad-hover);transform:translateY(-3px);}
+  .back-to-top svg{width:20px;height:20px;}
+  @media (max-width:560px){
+    .back-to-top{bottom:18px;right:18px;width:44px;height:44px;}
+  }
 </style>
 </head>
 <body>
@@ -559,15 +582,15 @@
     </div>
     <div class="brand-row">
       <div class="brand-badge reveal">
-        <img src="assets/logos/dell.png" alt="Dell" loading="lazy">
+        <img src="assets/logos/Dell_Logo.svg.webp" alt="Dell" loading="lazy">
         <span>Dell</span>
       </div>
       <div class="brand-badge reveal">
-        <img src="assets/logos/hp.png" alt="HP" loading="lazy">
+        <img src="assets/logos/HP logo.png" alt="HP" loading="lazy">
         <span>HP</span>
       </div>
       <div class="brand-badge reveal">
-        <img src="assets/logos/apple.png" alt="Apple" loading="lazy">
+        <img src="assets/logos/apple logo.png" alt="Apple" loading="lazy">
         <span>Apple MacBook</span>
       </div>
     </div>
@@ -681,8 +704,7 @@
     <div class="digital-grid">
       <a href="https://www.hotelops.ng" target="_blank" rel="noopener" class="digital-card reveal">
         <div class="digital-top">
-          <!-- Swap for <img src="assets/logos/hotelops.png" alt="HotelOps"> once logo is supplied -->
-          <div class="digital-logo"><span class="initial">H</span></div>
+          <img src="assets/logos/HotelOps.png" alt="HotelOps" class="digital-logo-img">
           <span class="status-pill live"><span class="dot"></span>Live</span>
         </div>
         <span class="tag">Hospitality</span>
@@ -691,8 +713,7 @@
       </a>
       <div class="digital-card reveal">
         <div class="digital-top">
-          <!-- Swap for <img src="assets/logos/realtycrm.png" alt="RealtyCRM"> once logo is supplied -->
-          <div class="digital-logo"><span class="initial">R</span></div>
+          <img src="assets/logos/RealtyCRM.png" alt="RealtyCRM" class="digital-logo-tile">
           <span class="status-pill dev"><span class="dot"></span>Under Development</span>
         </div>
         <span class="tag">Real Estate</span>
@@ -797,12 +818,17 @@
     <div class="foot-bottom">
       <span>© <span id="year">2026</span> E-Tech Solutions. All rights reserved.</span>
       <div class="foot-social">
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 018 0v8"/></svg></a>
-        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 4.5s-.7 1.4-2 2.3c1.3 8-6.4 13.8-13.6 10.7 2.5.1 4.8-.7 6.4-2.2-3 0-5-2-5.7-4.2.8.2 1.6.1 2.3-.1C6 10.5 4.7 8.6 4.7 6.4c.9.5 1.8.8 2.9.8C5.6 5.7 5 3 6.3 1 8.8 4 12.4 5.9 16.4 6.1c-.7-3 2.6-5.2 5.2-3.5-1.2.2-2.1 1-2.5 2 1.1-.1 2-.4 2.9-1-.6 1.1-1.4 2-2.5 2.6z"/></svg></a>
+        <a href="https://www.facebook.com/share/14jEUAce2XH/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="https://www.linkedin.com/company/e_tech_solutions01/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 018 0v8"/></svg></a>
+        <a href="https://www.instagram.com/etechstore.ng?igsh=Z3RxZW9xdTNtY3Zj" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
       </div>
     </div>
   </div>
 </footer>
+
+<a href="#main" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
 
 <script>
   // Mobile menu
@@ -840,10 +866,12 @@
   }, {threshold:0.3});
   if(fwWrap) fwIo.observe(fwWrap);
 
-  // Header background on scroll
+  // Header background + back-to-top visibility on scroll
   const header = document.querySelector('header');
+  const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     header.style.boxShadow = window.scrollY > 10 ? '0 6px 20px rgba(10,31,51,0.06)' : 'none';
+    backToTop.classList.toggle('visible', window.scrollY > 500);
   });
 
   // Newsletter submit feedback
